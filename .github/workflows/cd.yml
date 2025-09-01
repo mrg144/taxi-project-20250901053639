@@ -1,0 +1,30 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: |
+        docker build -t taxi-app:latest .
+    
+    - name: Deploy to staging
+      run: |
+        # Add deployment logic here
+        echo "Deploying to staging environment"
+    
+    - name: Run smoke tests
+      run: |
+        # Add smoke tests here
+        echo "Running post-deployment tests"
+
+
